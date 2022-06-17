@@ -1,21 +1,23 @@
+var baseUrl="http://localhost:8080/Spring_Pos/customer";
+
 loadAllCustomers();
+
 
 //Methods
 function loadAllCustomers() {
     $("#customer-Tbody").empty();
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/customer?option=GETALL",
+        url: baseUrl,
         method: "GET",
         // dataType:"json", // please convert the response into JSON
         success: function (resp) {
             for (const customer of resp.data) {
-                let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.address}</td><td>${customer.salary}</td></tr>`;
+                let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.address}</td><td>${customer.contactNo}</td></tr>`;
                 $("#customer-Tbody").append(row);
             }
-            // bindClickEvents();
         },
-        error: function (ob, state) {
-            console.log(ob, state)
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
     });
 
@@ -25,22 +27,20 @@ function saveCustomer() {
     var custData = $("#customerForm").serialize();
     console.log(custData);
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/customer",
+        url: baseUrl,
         method: "POST",
         data:custData,
         success:function (res){
-            if (res.status==200){
-                alert(res.message);
+            if (res.code==200){
+                alert("Successfully Customer Registered");
                 loadAllCustomers();
                 loadCustomerId();
-            }else {
-                alert(res.data);
             }
+
         },
-        error: function (ob, textStatus, error) {
-            console.log(ob);
-            console.log(textStatus);
-            console.log(error);
+        error: function (ob) {
+            alert(ob.responseJSON.message);
+
         }
     });
 
@@ -97,24 +97,22 @@ $("#clear-customer").click(function (){
 });
 
 $('#search-button').click(function (){
-    var cId=$("#txtCustomer").val()
+    var customerID=$("#txtCustomer").val()
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/customer?option=SEARCH&cusId="+cId,
+        url: baseUrl+"/"+customerID,
         method: "GET",
         success: function (resp) {
-            if (resp.status==200){
+            if (resp.code==200){
                 $("#staticBackdrop1").modal('show');
-                $("#customer-id1").val(resp.id);
-                $("#customer-name1").val(resp.name);
-                $("#customer-address1").val(resp.address);
-                $("#customer-mobile1").val(resp.salary);
+                $("#customer-id1").val(resp.data.id);
+                $("#customer-name1").val(resp.data.name);
+                $("#customer-address1").val(resp.data.address);
+                $("#customer-mobile1").val(resp.data.contactNo);
                 $('#txtCustomer').val("");
-            }else{
-                alert("Invalid Customer ID .Try Again!")
             }
             },
         error: function (ob, state) {
-            console.log(ob, state)
+            alert(ob.responseJSON.message);
         }
 
     });
@@ -150,22 +148,18 @@ function updateCustomer(){
     }
 
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/customer",
+        url: baseUrl,
         method: "PUT",
         contentType:"application/json",
         data: JSON.stringify(cusOb),
         success: function (res) {
-            if (res.status == 200) {
-                alert(res.message);
+            if (res.code == 200) {
+                alert("Successfully Updated");
                 loadAllCustomers();
-            } else if (res.status == 400) {
-                alert(res.message);
-            } else {
-                alert(res.data);
             }
         },
         error: function (ob, errorStatus) {
-            console.log(ob);
+            alert(ob.responseJSON.message);
         }
     });
     $("#staticBackdrop1").modal('hide');
@@ -178,27 +172,22 @@ $("#delete-customer1").click(function (){
 });
 
 function deleteCustomer(){
-    var cusId=$("#customer-id1").val();
+    var customerId=$("#customer-id1").val();
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/customer?cusId=" +cusId,
+        url: baseUrl+"?id=" +customerId,
         method: "DELETE",
         success: function (res) {
             console.log(res);
-            if (res.status == 200) {
-                alert(res.message);
+            if (res.code == 200) {
+                alert("Customer Successfully Deleted");
                 loadAllCustomers();
                 loadCustomerId();
-            } else if (res.status == 400) {
-                alert(res.data);
-            } else {
-                alert(res.data);
             }
 
         },
-        error: function (ob, status, t) {
-            console.log(ob);
-            console.log(status);
-            console.log(t);
+        error: function (ob) {
+            alert(ob.responseJSON.message);
+
         }
     });
 

@@ -5,7 +5,7 @@ function loadCustomerId(){
     console.log("in load id in order");
     $("#cmbCustomer").empty()
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/customer?option=CustId",
+        url: "http://localhost:8080/Spring_Pos/customer",
         method: "GET",
         success: function (resp) {
             var option = $('<option value="0">Select Customer ID</option>');
