@@ -1,0 +1,47 @@
+package lk.ijse.spring.controller;
+
+import lk.ijse.spring.dto.ItemDTO;
+import lk.ijse.spring.service.CustomerService;
+import lk.ijse.spring.service.ItemService;
+import lk.ijse.spring.util.ResponseUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@CrossOrigin
+@RequestMapping("item")
+public class ItemController {
+
+    @Autowired
+    ItemService itemService;
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllItems(){
+
+        return new ResponseUtil(200,"Ok",itemService.getAllItems());
+    }
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil saveItem(@ModelAttribute ItemDTO dto){
+        itemService.saveItem(dto);
+        return new ResponseUtil(200,"Saved",null);
+    }
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil updateItem(@RequestBody ItemDTO dto){
+        itemService.updateItem(dto);
+        return new ResponseUtil(200,"Updated",null);
+    }
+    @DeleteMapping(path = "/{code}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil deleteItem(@PathVariable String code){
+        itemService.deleteItem(code);
+        return new ResponseUtil(200,"Deleted",null);
+    }
+    @GetMapping(params = {"code"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil searchItem(@RequestParam String code){
+
+        return new ResponseUtil(200,"Ok",itemService.searchItem(code));
+    }
+
+
+}

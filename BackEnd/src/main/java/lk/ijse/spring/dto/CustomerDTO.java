@@ -10,9 +10,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
 public class CustomerDTO {
-    @Id
     private String id;
     private String name;
     private String address;

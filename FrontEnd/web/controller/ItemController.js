@@ -1,10 +1,13 @@
+var baseUrl="http://localhost:8080/Spring_Pos/item";
+
+
 loadAllItems();
 
 //Methods
 function loadAllItems() {
     $("#item-Tbody").empty();
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/item?option=GETALL",
+        url: baseUrl,
         method: "GET",
         success: function (resp) {
             for (const item of resp.data) {
@@ -13,7 +16,7 @@ function loadAllItems() {
             }
         },
         error: function (ob, state) {
-            console.log(ob, state)
+            alert(ob.responseJSON.message);
         }
     });
 
@@ -24,22 +27,21 @@ function saveItem() {
     var itemData = $("#itemForm").serialize();
     console.log(itemData);
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/item",
+        url: baseUrl,
         method: "POST",
         data:itemData,
         success:function (res){
-            if (res.status==200){
-                alert(res.message);
+            if (res.code==200){
+                alert("Item Successfully Updated");
                 loadAllItems();
                 loadItemId();
             }else {
                 alert(res.data);
             }
         },
-        error: function (ob, textStatus, error) {
-            console.log(ob);
-            console.log(textStatus);
-            console.log(error);
+        error: function (ob) {
+            alert(ob.responseJSON.message);
+
         }
     });
     $("#ItemstaticBackdrop").modal('hide');
@@ -88,22 +90,21 @@ $("#clear-Item").click(function (){
 $('#itemSearch_button').click(function (){
     var itemCode=$("#txtItem").val();
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/item?option=SEARCH&code="+itemCode,
+        url: baseUrl+"?code="+itemCode,
         method: "GET",
         success: function (resp) {
-            if (resp.status==200){
+            var item=resp.data;
+            if (resp.code==200){
                 $("#staticBackdrop2").modal('show');
-                $("#Item-Code1").val(resp.code);
-                $("#item-name1").val(resp.name);
-                $("#item-price1").val(resp.unitPrice);
-                $("#Item-Quantity1").val(resp.qtyOnHand);
+                $("#Item-Code1").val(item.code);
+                $("#item-name1").val(item.name);
+                $("#item-price1").val(item.unitPrice);
+                $("#Item-Quantity1").val(item.qtyOnHand);
                 $('#txtItem').val("");
-            }else{
-                alert("Invalid Item Code.Try Again!");
             }
         },
-        error: function (ob, state) {
-            console.log(ob, state)
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
 
     });
@@ -134,26 +135,22 @@ function updateItem(){
         code:$("#Item-Code1").val(),
         name:$("#item-name1").val(),
         unitPrice:$("#item-price1").val(),
-        qtyOnHand:$("#Item-Quantity1").val(),
+        qty:$("#Item-Quantity1").val(),
     }
 
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/item?option=UPDATEALL",
+        url: baseUrl,
         method: "PUT",
         contentType:"application/json",
         data: JSON.stringify(itemOb),
         success: function (res) {
-            if (res.status == 200) {
-                alert(res.message);
+            if (res.code == 200) {
+                alert("Item Successfully Updated");
                 loadAllItems();
-            } else if (res.status == 400) {
-                alert(res.message);
-            } else {
-                alert(res.data);
             }
         },
-        error: function (ob, errorStatus) {
-            console.log(ob);
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
     });
 
@@ -169,25 +166,20 @@ $("#delete-item1").click(function (){
 function deleteItem(){
     var itemCode=$("#Item-Code1").val();
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/item?code=" +itemCode,
+        url: baseUrl+"/"+itemCode,
         method: "DELETE",
         success: function (res) {
             console.log(res);
-            if (res.status == 200) {
-                alert(res.message);
+            if (res.code == 200) {
+                alert("Item Successfully Deleted");
                 loadAllItems();
                 loadItemId();
-            } else if (res.status == 400) {
-                alert(res.data);
-            } else {
-                alert(res.data);
             }
 
         },
-        error: function (ob, status, t) {
-            console.log(ob);
-            console.log(status);
-            console.log(t);
+        error: function (ob) {
+            alert(ob.responseJSON.message);
+
         }
     });
 

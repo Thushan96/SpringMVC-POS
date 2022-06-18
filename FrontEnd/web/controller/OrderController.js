@@ -63,7 +63,7 @@ function  setCustomerData(Cid){
 function loadItemId(){
     $("#cmbItem").empty();
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/item?option=ItemId",
+        url: "http://localhost:8080/Spring_Pos/item",
         method: "GET",
         success: function (resp) {
             var option = $('<option value="0">Select Item Code</option>');
