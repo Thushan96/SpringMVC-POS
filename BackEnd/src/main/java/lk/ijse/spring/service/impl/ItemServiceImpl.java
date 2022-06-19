@@ -1,5 +1,6 @@
 package lk.ijse.spring.service.impl;
 
+import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.dto.ItemDTO;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Item;
@@ -63,5 +64,14 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemDTO> getAllItems() {
         return mapper.map(repo.findAll(),new TypeToken<List<ItemDTO>>(){}.getType());
+    }
+
+    @Override
+    public ItemDTO findLastItemByCode() {
+        if (repo.findTopByOrderByCodeDesc()==null){
+            return null;
+        }else{
+            return mapper.map(repo.findTopByOrderByCodeDesc(),ItemDTO.class);
+        }
     }
 }

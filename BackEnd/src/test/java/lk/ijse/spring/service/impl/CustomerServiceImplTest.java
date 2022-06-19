@@ -38,12 +38,20 @@ public class CustomerServiceImplTest {
         assertNotNull(allCustomers);
 
     }
+    @Test
+    public void getLastCustomer(){
+        addCustomers();
+
+        CustomerDTO lastCustomerById = customerService.findLastCustomerById();
+        System.out.println(lastCustomerById);
+
+    }
 
     public void addCustomers() {
-        CustomerDTO c1 = new CustomerDTO("C001", "Dasun", "Galle", "100");
-        CustomerDTO c2 = new CustomerDTO("C002", "Kamal", "Panadura", "200");
-        CustomerDTO c3 = new CustomerDTO("C003", "Ramal", "Kaluthara", "300");
-        CustomerDTO c4 = new CustomerDTO("C004", "Oshan", "Colombo", "400");
+        CustomerDTO c1 = new CustomerDTO("C-0001", "Dasun", "Galle", "100");
+        CustomerDTO c2 = new CustomerDTO("C-0002", "Kamal", "Panadura", "200");
+        CustomerDTO c3 = new CustomerDTO("C-0003", "Ramal", "Kaluthara", "300");
+        CustomerDTO c4 = new CustomerDTO("C-0004", "Oshan", "Colombo", "400");
         customerService.saveCustomer(c1);
         customerService.saveCustomer(c2);
         customerService.saveCustomer(c3);

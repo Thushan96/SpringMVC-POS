@@ -1,6 +1,7 @@
 var baseUrl="http://localhost:8080/Spring_Pos/customer";
 
 loadAllCustomers();
+loadNewCustomerId();
 
 
 //Methods
@@ -22,6 +23,21 @@ function loadAllCustomers() {
     });
 
 }
+
+// get last customer Id
+function loadNewCustomerId(){
+    $.ajax({
+        url: baseUrl+"?custId",
+        method: "GET",
+        // dataType:"json", // please convert the response into JSON
+        success: function (resp) {
+            $("#customer-id").val(resp.data);
+        },
+        error: function (ob) {
+            alert(ob.responseJSON.message);
+        }
+    });
+}
 function saveCustomer() {
 
     var custData = $("#customerForm").serialize();
@@ -35,6 +51,8 @@ function saveCustomer() {
                 alert("Successfully Customer Registered");
                 loadAllCustomers();
                 loadCustomerId();
+                loadNewCustomerId();
+
             }
 
         },
@@ -46,7 +64,6 @@ function saveCustomer() {
 
     $("#staticBackdrop").modal('hide');
     $("#save-customer").attr('disabled', true);
-    $('#customer-id').attr('readonly', false);
 }
 
 function searchCustomerFromID(cId){
@@ -84,6 +101,7 @@ function clearAll() {
 $("#save-customer").click(function () {
     saveCustomer();
     clearAll();
+    loadNewCustomerId();
 });
 
 
@@ -94,6 +112,7 @@ $("#clear-customer").click(function (){
     $("#save-customer").attr('disabled', true);
     $("#update-customer").attr('disabled', true);
     $('#customer-id').attr('readonly', false);
+    loadNewCustomerId();
 });
 
 $('#search-button').click(function (){
@@ -132,6 +151,7 @@ function clearAfterUpdate() {
 $("#update-customer1").click(function (){
     updateCustomer();
     clearAfterUpdate();
+    loadNewCustomerId();
     // loadCustomerId();
 });
 
@@ -169,6 +189,7 @@ $("#delete-customer1").click(function (){
     deleteCustomer();
     loadAllCustomers();
     loadCustomerId();
+    loadNewCustomerId();
 });
 
 function deleteCustomer(){
@@ -182,6 +203,7 @@ function deleteCustomer(){
                 alert("Customer Successfully Deleted");
                 loadAllCustomers();
                 loadCustomerId();
+                loadNewCustomerId();
             }
 
         },
@@ -203,7 +225,7 @@ $('#clear-customer2').click(function (){
 
 // VALIDATIONS
 
-const cusIDRegEx = /^(C00-)[0-9]{1,3}$/;
+const cusIDRegEx = /^(C-)[0-9]{1,4}$/;
 const cusNameRegEx = /^[A-z ]{5,20}$/;
 const cusAddressRegEx = /^[0-9/A-z. ,]{7,}$/;
 const cusMobileRegEx = /^[0-9]{10}$/;
@@ -244,7 +266,7 @@ function formValid() {
         }
     } else {
         $("#customer-id").css('border', '2px solid red');
-        $("#lblcusid").text("Customer ID is a required field : Pattern C00-000");
+        $("#lblcusid").text("Customer ID is a required field : Pattern C-0000");
         return false;
     }
 }
@@ -266,6 +288,7 @@ function checkIfValid() {
                     if (res) {
                         saveCustomer();
                         clearAll();
+                        loadNewCustomerId();
                     }
                 } else {
                     $("#customer-mobile").focus();

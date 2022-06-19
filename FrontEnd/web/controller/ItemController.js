@@ -1,13 +1,14 @@
-var baseUrl="http://localhost:8080/Spring_Pos/item";
+var itemUrl="http://localhost:8080/Spring_Pos/item";
 
 
 loadAllItems();
+loadNewItemCode();
 
 //Methods
 function loadAllItems() {
     $("#item-Tbody").empty();
     $.ajax({
-        url: baseUrl,
+        url: itemUrl,
         method: "GET",
         success: function (resp) {
             for (const item of resp.data) {
@@ -22,12 +23,28 @@ function loadAllItems() {
 
 }
 
+//load new Item code
+function loadNewItemCode(){
+    $.ajax({
+        url: itemUrl+"?itemCode",
+        method: "GET",
+        // dataType:"json", // please convert the response into JSON
+        success: function (resp) {
+            $("#Item-id").val(resp.data);
+        },
+        error: function (ob) {
+            alert(ob.responseJSON.message);
+        }
+    });
+}
+
+
 
 function saveItem() {
     var itemData = $("#itemForm").serialize();
     console.log(itemData);
     $.ajax({
-        url: baseUrl,
+        url: itemUrl,
         method: "POST",
         data:itemData,
         success:function (res){
@@ -35,6 +52,7 @@ function saveItem() {
                 alert("Item Successfully Updated");
                 loadAllItems();
                 loadItemId();
+                loadNewItemCode();
             }else {
                 alert(res.data);
             }
@@ -46,7 +64,6 @@ function saveItem() {
     });
     $("#ItemstaticBackdrop").modal('hide');
     $("#save-Item").attr('disabled', true);
-    $('#Item-id').attr('readonly', false);
 }
 
 function searchItemFromID(iCode){
@@ -76,6 +93,7 @@ $("#save-Item").click(function () {
     clearAllItems();
     loadAllItems();
     loadItemId();
+    loadNewItemCode();
 });
 
 
@@ -84,13 +102,12 @@ $("#clear-Item").click(function (){
     clearAllItems();
     $("#save-Item").attr('disabled', true);
     // $("#update-customer").attr('disabled', true);
-    $('#Item-id').attr('readonly', false);
 });
 
 $('#itemSearch_button').click(function (){
     var itemCode=$("#txtItem").val();
     $.ajax({
-        url: baseUrl+"?code="+itemCode,
+        url: itemUrl+"?code="+itemCode,
         method: "GET",
         success: function (resp) {
             var item=resp.data;
@@ -99,7 +116,7 @@ $('#itemSearch_button').click(function (){
                 $("#Item-Code1").val(item.code);
                 $("#item-name1").val(item.name);
                 $("#item-price1").val(item.unitPrice);
-                $("#Item-Quantity1").val(item.qtyOnHand);
+                $("#Item-Quantity1").val(item.qty);
                 $('#txtItem').val("");
             }
         },
@@ -123,7 +140,7 @@ function clearAfterItemUpdate() {
 $("#update-item1").click(function (){
     updateItem();
     clearAfterItemUpdate();
-    // loadItemId();
+    loadItemId();
 });
 
 $("#item_closebtn").click(function (){
@@ -139,7 +156,7 @@ function updateItem(){
     }
 
     $.ajax({
-        url: baseUrl,
+        url: itemUrl,
         method: "PUT",
         contentType:"application/json",
         data: JSON.stringify(itemOb),
@@ -161,12 +178,13 @@ $("#delete-item1").click(function (){
     deleteItem();
     loadAllItems();
     loadItemId();
+    loadNewItemCode();
 });
 
 function deleteItem(){
     var itemCode=$("#Item-Code1").val();
     $.ajax({
-        url: baseUrl+"/"+itemCode,
+        url: itemUrl+"/"+itemCode,
         method: "DELETE",
         success: function (res) {
             console.log(res);
@@ -174,6 +192,7 @@ function deleteItem(){
                 alert("Item Successfully Deleted");
                 loadAllItems();
                 loadItemId();
+                loadNewItemCode();
             }
 
         },
@@ -195,7 +214,7 @@ $('#clear-item2').click(function (){
 
 // VALIDATIONS
 
-const itemCodeRegEx =  /^(I00-)[0-9]{3,4}$/;
+const itemCodeRegEx =  /^(I-)[0-9]{1,4}$/;
 const itemNameRegEx = /^[A-z ]{3,20}$/;
 const itemPriceRegEx = /^[0-9](.){1,6}$/;
 const itemQtyRegEx = /^[0-9]{1,3}$/;
@@ -236,7 +255,7 @@ function itemformValid() {
         }
     } else {
         $("#Item-id").css('border', '2px solid red');
-        $("#lblItemCode").text("Item Code is a required field : Pattern I00-000");
+        $("#lblItemCode").text("Item Code is a required field : Pattern I-0000");
         return false;
     }
 }
@@ -258,6 +277,7 @@ function itemcheckIfValid() {
                     if (res) {
                         saveItem();
                         clearAllItems();
+                        loadNewItemCode();
                     }
                 } else {
                     $("#Item-quantity").focus();

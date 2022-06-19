@@ -11,7 +11,16 @@
   <component name="ChangeListManager">
     <list default="true" id="bc7d7e39-0215-4840-879e-ae83c9973d58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/dto/CustomerDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/dto/CustomerDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/controller/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/repo/CustomerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/repo/CustomerRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/repo/ItemRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/repo/ItemRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/service/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/service/ItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/service/impl/CustomerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/service/impl/ItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/service/impl/ItemServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/test/java/lk/ijse/spring/service/impl/CustomerServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/test/java/lk/ijse/spring/service/impl/CustomerServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/test/java/lk/ijse/spring/service/impl/ItemServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/test/java/lk/ijse/spring/service/impl/ItemServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0.war" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/META-INF/MANIFEST.MF" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/application.properties" beforeDir="false" />
@@ -21,12 +30,19 @@
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/config/WebAppConfig.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/config/WebRootConfig.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/controller/CustomerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/controller/ItemController.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/dto/CustomerDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/dto/ItemDTO.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/entity/Customer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/entity/Item.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/repo/CustomerRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/repo/ItemRepo.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/service/CustomerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/service/ItemService.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/service/impl/CustomerServiceImpl$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/service/impl/CustomerServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/service/impl/ItemServiceImpl$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/service/impl/ItemServiceImpl.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/classes/lk/ijse/spring/util/ResponseUtil.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/lib/FastInfoset-1.2.15.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/BackEnd-1.0.0/WEB-INF/lib/antlr-2.7.7.jar" beforeDir="false" />
@@ -71,17 +87,25 @@
       <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/config/WebAppConfig.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/config/WebRootConfig.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/controller/CustomerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/controller/ItemController.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/dto/CustomerDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/dto/ItemDTO.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/entity/Customer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/entity/Item.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/repo/CustomerRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/repo/ItemRepo.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/service/CustomerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/service/ItemService.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/service/impl/CustomerServiceImpl$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/service/impl/CustomerServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/service/impl/ItemServiceImpl$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/service/impl/ItemServiceImpl.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/classes/lk/ijse/spring/util/ResponseUtil.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/test-classes/lk/ijse/spring/repo/CustomerRepoTest.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/target/test-classes/lk/ijse/spring/service/impl/CustomerServiceImplTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/target/test-classes/lk/ijse/spring/service/impl/ItemServiceImplTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/web/controller/CustomerController.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/web/controller/CustomerController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/web/controller/ItemController.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/web/controller/ItemController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/web/controller/OrderController.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/web/controller/OrderController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/web/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -150,9 +174,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/FrontEnd" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ORM/Hibernate/CourseWork" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -166,9 +190,12 @@
     <key name="CreateTestDialog.RecentsKey">
       <recent name="lk.ijse.spring.repo" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="lk.ijse.spring.entity" />
+    </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 8.5.78">
-    <configuration name="CustomerServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CustomerServiceImplTest.getLastCustomer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BackEnd" />
       <extension name="coverage">
         <pattern>
@@ -178,22 +205,8 @@
       </extension>
       <option name="PACKAGE_NAME" value="lk.ijse.spring.service.impl" />
       <option name="MAIN_CLASS_NAME" value="lk.ijse.spring.service.impl.CustomerServiceImplTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ItemServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="BackEnd" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="lk.ijse.spring.service.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="lk.ijse.spring.service.impl" />
-      <option name="MAIN_CLASS_NAME" value="lk.ijse.spring.service.impl.ItemServiceImplTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="getLastCustomer" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -225,6 +238,22 @@
       <option name="PACKAGE_NAME" value="lk.ijse.spring.service.impl" />
       <option name="MAIN_CLASS_NAME" value="lk.ijse.spring.service.impl.ItemServiceImplTest" />
       <option name="METHOD_NAME" value="getAllItems" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ItemServiceImplTest.getLastItem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BackEnd" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="lk.ijse.spring.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="lk.ijse.spring.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="lk.ijse.spring.service.impl.ItemServiceImplTest" />
+      <option name="METHOD_NAME" value="getLastItem" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -335,19 +364,19 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.ItemServiceImplTest.getAllItems" />
-      <item itemvalue="JUnit.CustomerServiceImplTest" />
-      <item itemvalue="JUnit.ItemServiceImplTest" />
-      <item itemvalue="Tomcat Server.Tomcat 8.5.78" />
       <item itemvalue="JUnit.ItemServiceImplTest.updateItem" />
       <item itemvalue="JUnit.ItemServiceImplTest.deleteItem" />
+      <item itemvalue="Tomcat Server.Tomcat 8.5.78" />
+      <item itemvalue="JUnit.CustomerServiceImplTest.getLastCustomer" />
+      <item itemvalue="JUnit.ItemServiceImplTest.getLastItem" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ItemServiceImplTest.getLastItem" />
+        <item itemvalue="JUnit.CustomerServiceImplTest.getLastCustomer" />
         <item itemvalue="JUnit.ItemServiceImplTest.deleteItem" />
         <item itemvalue="JUnit.ItemServiceImplTest.updateItem" />
         <item itemvalue="JUnit.ItemServiceImplTest.getAllItems" />
-        <item itemvalue="JUnit.ItemServiceImplTest" />
-        <item itemvalue="JUnit.CustomerServiceImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -368,7 +397,9 @@
       <workItem from="1655433674105" duration="152000" />
       <workItem from="1655458263915" duration="16433000" />
       <workItem from="1655528583214" duration="14456000" />
-      <workItem from="1655565308048" duration="7799000" />
+      <workItem from="1655565308048" duration="8120000" />
+      <workItem from="1655614791552" duration="1082000" />
+      <workItem from="1655616762709" duration="16205000" />
     </task>
     <servers />
   </component>
@@ -392,15 +423,6 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/BackEnd/src/main/java/lk/ijse/spring/controller/CustomerController.java</url>
-          <line>10</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
         <watch expression="repo" language="JAVA" />

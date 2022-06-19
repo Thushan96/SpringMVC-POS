@@ -46,4 +46,28 @@ public class CustomerController {
     public ResponseUtil searchCustomer(@PathVariable String id) {
         return new ResponseUtil(200,"Ok",customerService.searchCustomer(id));
     }
+
+    @GetMapping(params = {"custId"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getLastId(){
+
+        CustomerDTO customerById = customerService.findLastCustomerById();
+        String id=null;
+        if (customerById!= null) {
+            int tempId = Integer.parseInt(customerById.getId().split("-")[1]);
+            tempId = tempId + 1;
+            if (tempId <= 9) {
+                id = "C-000" + tempId;
+            } else if (tempId <= 99) {
+                id = "C-00" + tempId;
+            } else if (tempId <= 999) {
+                id = "C-0" + tempId;
+            } else if (tempId <= 9999) {
+                id = "C-" + tempId;
+            }
+        } else {
+            id = "C-0001";
+        }
+
+        return new  ResponseUtil(200,"0k",id);
+    }
 }

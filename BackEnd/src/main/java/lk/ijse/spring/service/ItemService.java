@@ -10,4 +10,5 @@ public interface ItemService {
     void deleteItem(String id);
     ItemDTO searchItem(String id);
     List<ItemDTO> getAllItems();
+    ItemDTO findLastItemByCode();
 }
