@@ -1,3 +1,5 @@
+var orderUrl="http://localhost:8080/Spring_Pos/purchase_Order";
+
 loadCustomerId();
 loadItemId();
 
@@ -15,55 +17,35 @@ function loadCustomerId(){
 
             }
         },
-        error: function (ob, state) {
-            console.log(ob, state)
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
     });
 
 }
 
 $("#cmbCustomer").change(function (){
-    var selectedId=$("#cmbCustomer option:selected").text();
+    var id=$("#cmbCustomer option:selected").text();
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/customer?option=CustName&cusId="+selectedId,
+        url: "http://localhost:8080/Spring_Pos/customer/"+id,
         method: "GET",
         success: function (resp) {
-            if (resp.status==200){
-                $("#customer-name-order").val(resp.name);
-            }else{
-                alert("Invalid Customer ID .Try Again!")
+            if (resp.code==200) {
+                $("#customer-name-order").val(resp.data.name);
             }
         },
-        error: function (ob, state) {
-            console.log(ob, state)
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
 
     });
 });
 
-function  setCustomerData(Cid){
-    // $.ajax({
-    //     url: "http://localhost:8080/BackEnd_Web_exploded/customer?option=CustName&cusId="+Cid,
-    //     method: "GET",
-    //     success: function (resp) {
-    //         if (resp.status==200){
-    //             $("#customer-name-order").val(resp.name);
-    //         }else{
-    //             alert("Invalid Customer ID .Try Again!")
-    //         }
-    //     },
-    //     error: function (ob, state) {
-    //         console.log(ob, state)
-    //     }
-    //
-    // });
-
-}
 
 function loadItemId(){
     $("#cmbItem").empty();
     $.ajax({
-        url: "http://localhost:8080/Spring_Pos/item",
+        url: itemUrl,
         method: "GET",
         success: function (resp) {
             var option = $('<option value="0">Select Item Code</option>');
@@ -73,8 +55,8 @@ function loadItemId(){
 
             }
         },
-        error: function (ob, state) {
-            console.log(ob, state)
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
     });
 
@@ -93,19 +75,17 @@ $("#cmbItem").change(function (){
 
 function  setItemData(code){
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/item?option=SEARCH&code="+code,
+        url: itemUrl+"?code="+code,
         method: "GET",
         success: function (resp) {
-            if (resp.status==200){
-                $("#item-name-order").val(resp.name);
-                $("#unit-price-order").val(resp.unitPrice);
-                $("#qtyOnHand-order").val(resp.qtyOnHand);
-            }else{
-                alert("Invalid Item Code.Try Again!");
+            if (resp.code==200){
+                $("#item-name-order").val(resp.data.name);
+                $("#unit-price-order").val(resp.data.unitPrice);
+                $("#qtyOnHand-order").val(resp.data.qty);
             }
         },
-        error: function (ob, state) {
-            console.log(ob, state)
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
 
     });
@@ -129,10 +109,10 @@ function  setItemData(code){
 
 function setOrderId(){
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/order?option=GENERATEORDERID",
+        url: orderUrl+"?OrderId",
         method: "GET",
         success: function (res) {
-            $("#order-id").val(res.orderId);
+            $("#order-id").val(res.data);
         }
     })
 }
@@ -161,24 +141,21 @@ function updateQty(){
 
 
     var itemUpdate={
-        itemCode:$("#cmbItem option:selected").text(),
-        QTYLeft:total
+        code:$("#cmbItem option:selected").text(),
+        name:$("#item-name-order").val(),
+        unitPrice:$("#unit-price-order").val(),
+        qty:total
     }
 
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/item?option=UPDATEQTY",
+        url: itemUrl,
         method: "PUT",
         contentType:"application/json",
         data: JSON.stringify(itemUpdate),
         success: function (res) {
-            if (res.status==200){
+            if (res.code==200){
                 console.log(res.message);
                 setItemData($("#cmbItem option:selected").text());
-            }else  if (res.status==400){
-                console.log(res.message);
-            }else {
-                console.log(res.data);
-                console.log(res.message);
             }
         }
     });
@@ -292,49 +269,46 @@ $("#place-order").click(function (){
         console.log(orderDB[i].getOrderItemCode());
         console.log(orderDB[i].getOrderItemName());
         console.log(orderDB[i].getOrderedQty());
-        console.log(orderDB[i].getTotal())
+        console.log(orderDB[i].getTotal());
 
         var od = {
+            oid: orderDB[i].getOrderItemCode(),
             itemCode: orderDB[i].getOrderItemCode(),
-            itemName: orderDB[i].getOrderItemName(),
-            unitPrice: orderDB[i].getUnitPrice(),
-            buyQty: orderDB[i].getOrderedQty(),
-            total: orderDB[i].getTotal()
+            qty: orderDB[i].getOrderedQty(),
+            unitPrice:parseFloat(orderDB[i].getUnitPrice()),
         }
 
         orderDetails.push(od);
     }
 
     var order = {
-        orderId:$("#order-id").val(),
-        orderDate: $("#order-date").val(),
-        customerId:$("#cmbCustomer option:selected").text(),
-        orderTotal:orderTotal.toString(),
+        oid:$("#order-id").val(),
+        date: $("#order-date").val(),
+        customerID:$("#cmbCustomer option:selected").text(),
         orderDetails: orderDetails
     }
+    console.log(order.oid);
+    console.log(order.date);
+    console.log(order.customerID);
+    console.log(order.orderDetails);
 
     console.log("in place order");
 
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/order",
+        url: orderUrl,
         method: "POST",
         data:JSON.stringify(order),
         success:function (res){
-            if (res.status==200){
-                alert(res.message);
-            }else {
-                alert(res.message);
+            if (res.code==200){
+                alert(ob.responseJSON.message);
             }
             clearData();
             setOrderId()
             var d = new Date();
             $("#order-date").val(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
         },
-        error: function (ob, textStatus, error) {
-            alert("operation failed");
-            console.log(ob);
-            console.log(textStatus);
-            console.log(error);
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
     });
 
@@ -437,17 +411,15 @@ function getItemQty(code){
     console.log("inside get item code method" +code);
     var Qty=null;
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/item?option=SEARCHQTY&code="+code,
+        url: itemUrl+"?code="+code,
         method: "GET",
         success: function (resp) {
-            if (resp.status==200){
-                Qty=parseInt(resp.qtyOnHand);
-            }else{
-                alert("Invalid Item Code.Try Again!");
+            if (resp.code==200){
+                Qty=parseInt(resp.data.qty);
             }
         },
-        error: function (ob, state) {
-            console.log(ob, state)
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
 
     });
@@ -463,44 +435,42 @@ function deleteRow(row){
 
 
     $.ajax({
-        url: "http://localhost:8080/BackEnd_Web_exploded/item?option=SEARCH&code="+rowId,
+        url: itemUrl+"?code="+rowId,
         method: "GET",
         success: function (resp) {
-            if (resp.status==200){
-                var itemQty=parseInt(resp.qtyOnHand);
+            if (resp.code==200){
+                var itemQty=parseInt(resp.data.qty);
                 var QtyOnHand=parseInt($("#qtyOnHand-order").val());
                 var total=rowQty+itemQty;
 
 
                 var itemUpdate={
-                    itemCode:row.closest('tr').children(':nth-child(1)').text(),
-                    QTYLeft:total
+                    code:row.closest('tr').children(':nth-child(1)').text(),
+                    name: resp.data.name,
+                    unitPrice:resp.data.qty,
+                    qty:total
                 }
                 $.ajax({
-                    url: "http://localhost:8080/BackEnd_Web_exploded/item?option=UPDATEQTY",
+                    url: itemUrl,
                     method: "PUT",
                     contentType:"application/json",
                     data: JSON.stringify(itemUpdate),
                     success: function (res) {
-                        if (res.status==200){
-                            console.log(res.message);
+                        if (res.code==200){
+                            console.log(res.data.message);
                             setItemData($("#cmbItem option:selected").text());
-                        }else  if (res.status==400){
-                            console.log(res.message);
-                        }else {
-                            console.log(res.data);
-                            console.log(res.message);
                         }
+                    },
+                    error: function (ob) {
+                        alert(ob.responseJSON.message);
                     }
                 });
 
 
-            }else{
-                alert("Invalid Item Code.Try Again!");
             }
         },
-        error: function (ob, state) {
-            console.log(ob, state)
+        error: function (ob) {
+            alert(ob.responseJSON.message);
         }
 
     });
