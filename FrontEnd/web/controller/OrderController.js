@@ -120,7 +120,7 @@ function setOrderId(){
 $(document).ready(function () {
     setOrderId();
     var d = new Date();
-$("#order-date").val(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
+$("#order-date").val(d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate());
 });
 
 
@@ -271,46 +271,94 @@ $("#place-order").click(function (){
         console.log(orderDB[i].getOrderedQty());
         console.log(orderDB[i].getTotal());
 
-        var od = {
-            oid: orderDB[i].getOrderItemCode(),
-            itemCode: orderDB[i].getOrderItemCode(),
-            qty: orderDB[i].getOrderedQty(),
-            unitPrice:parseFloat(orderDB[i].getUnitPrice()),
-        }
+        var  oid=orderDB[i].getOrderId();
+        var item;
+        $.ajax({
+            url: orderUrl+"/"+oid,
+            method: "GET",
+            success: function (resp) {
+                var itemCode=orderDB[i].getOrderItemCode();
+                $.ajax({
+                    url: itemUrl+"?code="+itemCode,
+                    method: "GET",
+                    success: function (resp) {
+                    item=resp.data;
+                        var od = {
+                            oid: orderDB[i].getOrderId(),
+                            itemCode: orderDB[i].getOrderItemCode(),
+                            qty: orderDB[i].getOrderedQty(),
+                            unitPrice:parseFloat(orderDB[i].getUnitPrice()),
+                            orders:resp.data,
+                            items:item,
+                        }
+                        orderDetails.push(od);
+                    }
+                });
 
-        orderDetails.push(od);
-    }
-
-    var order = {
-        oid:$("#order-id").val(),
-        date: $("#order-date").val(),
-        customerID:$("#cmbCustomer option:selected").text(),
-        orderDetails: orderDetails
-    }
-    console.log(order.oid);
-    console.log(order.date);
-    console.log(order.customerID);
-    console.log(order.orderDetails);
-
-    console.log("in place order");
-
-    $.ajax({
-        url: orderUrl,
-        method: "POST",
-        data:JSON.stringify(order),
-        success:function (res){
-            if (res.code==200){
-                alert(ob.responseJSON.message);
             }
-            clearData();
-            setOrderId()
-            var d = new Date();
-            $("#order-date").val(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
+        });
+
+
+
+
+
+    }
+
+
+    var customerID=$("#cmbCustomer option:selected").text();
+    $.ajax({
+        url: baseUrl+"/"+customerID,
+        method: "GET",
+        success: function (resp) {
+            if (resp.code==200){
+                let customerObj={
+                    id:resp.data.id,
+                    name:resp.data.name,
+                    address:resp.data.address,
+                    contactNo:resp.data.contactNo
+                }
+                let order = {
+                    oid: $("#order-id").val(),
+                    date: $("#order-date").val(),
+                    customer: resp.data,
+                    orderDetails: orderDetails
+                };
+                console.log(order.oid);
+                console.log(order.date);
+                console.log(order.customer);
+                console.log(order.orderDetails);
+
+                console.log("in place order");
+
+                $.ajax({
+                    url: orderUrl,
+                    method: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data:JSON.stringify(order),
+                    dataType: "json",
+                    success:function (res){
+                        if (res.code==200){
+                            alert(ob.responseJSON.message);
+                        }
+                        clearData();
+                        setOrderId()
+                        var d = new Date();
+                        $("#order-date").val(d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
+                    },
+                    error: function (ob) {
+                        alert(ob.responseJSON.message);
+                        console.log(ob.responseJSON.message);
+                    }
+                });
+            }
         },
-        error: function (ob) {
+        error: function (ob, state) {
             alert(ob.responseJSON.message);
         }
+
     });
+
+
 
     // var orderId=$("#order-id").val();
     // OrderDetailsObject=new OrderDetailsDTO(orderId,setTotalAfterDiscount());

@@ -6,10 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
-
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +16,8 @@ import java.util.List;
 public class OrdersDTO {
     private String oid;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private Date date;
     private CustomerDTO customer;
     List<OrderDetailsDTO> orderDetails;
+
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class Orders {
     @Id
     private String oid;
-    private LocalDate date;
+    private Date date;
 
     //Out=verse
     @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})

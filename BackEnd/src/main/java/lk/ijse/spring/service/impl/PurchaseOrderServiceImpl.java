@@ -41,6 +41,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public void purchaseOrder(OrdersDTO dto) {
 
         Orders order = mapper.map(dto, Orders.class);
+        System.out.println(order.toString());
 
         if(!orderRepo.existsById(order.getOid())){
             orderRepo.save(order);
