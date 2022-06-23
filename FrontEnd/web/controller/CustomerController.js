@@ -175,10 +175,10 @@ function updateCustomer(){
         success: function (res) {
             if (res.code == 200) {
                 alert("Successfully Updated");
-                loadAllCustomers();
+                // loadAllCustomers();
             }
         },
-        error: function (ob, errorStatus) {
+        error: function (ob) {
             alert(ob.responseJSON.message);
         }
     });
@@ -266,7 +266,7 @@ function formValid() {
         }
     } else {
         $("#customer-id").css('border', '2px solid red');
-        $("#lblcusid").text("Customer ID is a required field : Pattern C-0000");
+        $("#lblcusid").text("Customer ID is a required field : Pattern C-0001");
         return false;
     }
 }
@@ -374,7 +374,7 @@ function checkformValid() {
         return true;
     } else {
         $("#txtCustomer").css('border', '2px solid red');
-        $("#lblCustId").text("Cus ID is a required field : Pattern C00-000");
+        $("#lblCustId").text("Cus ID is a required field : Pattern C-0001");
         return false;
     }
 }

@@ -16,7 +16,7 @@ function loadAllItems() {
                 $("#item-Tbody").append(row);
             }
         },
-        error: function (ob, state) {
+        error: function (ob) {
             alert(ob.responseJSON.message);
         }
     });
@@ -151,8 +151,8 @@ function updateItem(){
     var itemOb={
         code:$("#Item-Code1").val(),
         name:$("#item-name1").val(),
-        unitPrice:$("#item-price1").val(),
-        qty:$("#Item-Quantity1").val(),
+        unitPrice:parseFloat($("#item-price1").val()),
+        qty:parseInt($("#Item-Quantity1").val()),
     }
 
     $.ajax({
@@ -163,7 +163,7 @@ function updateItem(){
         success: function (res) {
             if (res.code == 200) {
                 alert("Item Successfully Updated");
-                loadAllItems();
+                // loadAllItems();
             }
         },
         error: function (ob) {
@@ -255,7 +255,7 @@ function itemformValid() {
         }
     } else {
         $("#Item-id").css('border', '2px solid red');
-        $("#lblItemCode").text("Item Code is a required field : Pattern I-0000");
+        $("#lblItemCode").text("Item Code is a required field : Pattern I-0001");
         return false;
     }
 }
@@ -363,7 +363,7 @@ function itemCheckformValid() {
         return true;
     } else {
         $("#txtItem").css('border', '2px solid red');
-        $("#lblICode").text("Item Code is a required field : Pattern I00-000");
+        $("#lblICode").text("Item Code is a required field : Pattern I-0001");
         return false;
     }
 }
@@ -414,7 +414,7 @@ function checkFormValidate() {
         }
     } else {
         $("#Item-id").css('border', '2px solid red');
-        $("#lblItemCode1").text("Item Code is a required field : Pattern I00-000");
+        $("#lblItemCode1").text("Item Code is a required field : Pattern I-0001");
         return false;
     }
 }
@@ -432,7 +432,7 @@ function itemIfValid() {
                 var itemQty = $("#Item-Quantity1").val();
                 var resp = itemQtyRegEx.test(itemQty);
                 if (resp) {
-                    let res = confirm("Do you really need to add this Customer..?");
+                    let res = confirm("Do you really need to add this Item..?");
                     if (res) {
                         saveItem();
                         clearAllItems();

@@ -28,7 +28,7 @@ public class PurchaseOrderController {
     public ResponseUtil purchaseOrder(@RequestBody OrdersDTO ordersDTO) {
         System.out.println(ordersDTO.toString());
         purchaseOrderS.purchaseOrder(ordersDTO);
-        return new ResponseUtil(200, "Save", null);
+        return new ResponseUtil(200, "Purchase order Successful", null);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
